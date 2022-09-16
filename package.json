@@ -1,0 +1,15 @@
+{
+  "name": "assistant",
+  "version": "1.0.0",
+  "description": "SCIRP",
+  "main": "src/index.js",
+  "scripts": {
+    "run": "node src/main/CommunicationManager/CommunicationManager.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "SaiGovardhana",
+  "license": "ISC",
+  "dependencies": {
+    "node-telegram-bot-api": "^0.59.0"
+  }
+}
