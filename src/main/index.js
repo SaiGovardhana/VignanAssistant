@@ -1,6 +1,10 @@
 let {MessageProcessor}=require('./MessageProcessor/SimpleMessageProcessor');
-let { TelegramBroker }=require('./CommunicationManager/Telegram/TelegramBroker')
+let { TelegramBroker }=require('./CommunicationManager/Telegram/TelegramBroker');
+const { AdminManager } = require('./AdminManager/AdminManager');
+const fs=require('fs');
+process.env.token=fs.readFileSync('./TelegramBot.txt').toString('utf-8');
 process.env.resourceDir=process.cwd()+"/resources/";
 process.env.NTBA_FIX_350=true;
 let messageProcessor=new MessageProcessor();
-let telegramBroker=new TelegramBroker(messageProcessor);
+let adminManager=new AdminManager();
+let telegramBroker=new TelegramBroker(messageProcessor,adminManager);

@@ -7,11 +7,12 @@ const {TimeTableModel} =require('../Models/TimeTableModel.js');
  * @param {*} workSheetName 
  * @returns {TimeTableModel}
  */
-async function ParseTimeTable(path,year)
+async function ParseTimeTable(buffer,year)
 {   try{
             // Read the Excel and get the worksheet, Name can be found at bottom right of excel 
             let workBook=new Excel.Workbook();
-            await workBook.xlsx.readFile(path);
+           
+            await workBook.xlsx.load(buffer);
             let timeTable=[]
             //let workSheet=workBook.getWorksheet(workSheetName);
             
