@@ -4,12 +4,15 @@
   "description": "SCIRP",
   "main": "src/index.js",
   "scripts": {
-    "run": "node src/main/CommunicationManager/CommunicationManager.js",
+    "run": "node src/main/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "SaiGovardhana",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.27.2",
+    "exceljs": "^4.3.0",
+    "node-html-to-image": "^3.2.4",
     "node-telegram-bot-api": "^0.59.0"
   }
 }

@@ -10,22 +10,39 @@ class SimpleMessageProcessor
 
     /**
      * Parses the Message and sends it to service manager
-     * @param {string} message 
+     * @param {Object.<string,string|any>} request
      */
-    parseMessage(message)
-    {   message=message.toLowerCase();
+    parseMessage(request)
+    {  let message=request['text'];
+        if(message==undefined)
+            message=request['caption']
+        
+        if(message==undefined)
+            return {'success':false}
+        console.log(message)
+        
+        if(message.trim().startsWith('admin'))
+        {
+            let tokens=message.split(' ');
+            
 
+            return {'success':false};              
+        }
+
+        else{
+       
         let tokens=message.split(" ");
-        let request=[]
-        console.log(tokens)
+        let tempTokens=[]
+        
         for(let i=0;i<tokens.length;i++)
         {
             tokens[i]=this.mapper(tokens[i]);
             if(tokens[i]!='')
-                request.push(tokens[i]);
+                tempTokens.push(tokens[i]);
         }
 
-        return this.serviceManager.parseRequest(request);
+        return this.serviceManager.parseRequest(tempTokens);
+    }
         
     }
 

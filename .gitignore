@@ -87,13 +87,13 @@ dist
 # Comment in the public line in if your project uses Gatsby and *not* Next.js
 # https://nextjs.org/blog/next-9-1#public-directory-support
 # public
-
+MyKeyPair.pem
 # vuepress build output
 .vuepress/dist
 
 # Serverless directories
 .serverless/
-
+.resources/
 # FuseBox cache
 .fusebox/
 
@@ -103,3 +103,5 @@ dist
 # TernJS port file
 .tern-port
 TelegramBot.txt
+
+*.7z

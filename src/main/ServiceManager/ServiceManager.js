@@ -6,11 +6,15 @@ class ServiceManager
         this.timeTableService=new TimeTableService()
     }
     /**
-     * 
+     * Parse the request according to service
      * @param {Array<string>}request  
      */
     parseRequest(request)
-    {   if(request[0]=='help'||request[0]=='/start')
+    {   
+        /**
+         * Request for help
+         */
+        if(request[0]=='help'||request[0]=='/start')
         {
             if(request[1]=='timetable')
             {
@@ -21,7 +25,9 @@ class ServiceManager
 
         }
 
-
+        /**
+         * If request belongs to timetable
+         */
         if(request[0]=='timetable')
             {
                 if(request.length==3)
@@ -40,8 +46,10 @@ class ServiceManager
                 return {'success':false , 'message':"Invalid use of command try using  *help timetable*  "}
             }
 
-
-
+            
+            /**
+             * Couldn't find a service
+             */
             return {'success':false,'message':'Couldnt find Service,\nTry using *help*'};
     }
 
