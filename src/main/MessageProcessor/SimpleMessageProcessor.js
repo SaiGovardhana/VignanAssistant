@@ -19,18 +19,13 @@ class SimpleMessageProcessor
         
         if(message==undefined)
             return {'success':false}
-        console.log(message)
         
-        if(message.trim().startsWith('admin'))
-        {
-            let tokens=message.split(' ');
-            
-
-            return {'success':false};              
-        }
-
         else{
-       
+       /**
+        * Parse the request['text'] to get array of string
+        * ex: timetable 4 a mon => [timetable,4,a,mon]
+        * also changes 1st to 1 2nd 2
+        */
         let tokens=message.split(" ");
         let tempTokens=[]
         

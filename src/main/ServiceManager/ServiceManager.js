@@ -8,6 +8,8 @@ class ServiceManager
     /**
      * Parse the request according to service
      * @param {Array<string>}request  
+     * receive array of strings
+     * request[0] =>command 
      */
     parseRequest(request)
     {   

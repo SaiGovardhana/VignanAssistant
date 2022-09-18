@@ -52,7 +52,7 @@ class TelegramBroker
         let request={'text':body,'caption':caption,'attachment':attachment};
 
         /**
-         * Get the attachment
+         * Get the attachment and save it in data
          */
         if(attachment!=undefined)
             {   if(body.trim().toLowerCase().startsWith('/admin'))
@@ -70,16 +70,27 @@ class TelegramBroker
                     
                    }
             }
+        
 
+        request['chat']=message.chat;
+        
         /**
-         * Parse message of admin
+         * Parse the message For admin
+         * The format of request is
+         * { text:text ,caption:text,chat:'chat_details',data:'attachment data' }
          */
         if(body.trim().toLowerCase().startsWith('/admin'))
         {   
-            request['chat']=message.chat;
             
+            /**
+             * Process the admin request
+             * 
+             */
             let result=await this.adminManager.parse(request,this.client);
-            
+            /**
+             * result has format
+             * {'message':text,'success':boolean}
+             */
             this.client.sendMessage(message.chat.id,result['message'],{parse_mode:'Markdown'});
             
             return ;
@@ -91,9 +102,17 @@ class TelegramBroker
 
         /**
          * Parse the message For a user
+         * The format of request is
+         * { body:text ,caption:text,chat:'chat_details' }
          */
         let result=this.messageManager.parseMessage(request);
-       
+        
+        /**
+         * result has format
+         * path represents a resource that must be sent to client.
+         * {text:'text',path:'text',success:boolean}
+         *
+         */
 
 
         if(!result.success)

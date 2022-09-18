@@ -22,7 +22,7 @@ class AdminManager
         }
         else
         {   /** Updates time table
-            *   /admin token timetable year
+            *  Syntax:  /admin <token> timetable year
              */
             if(tokens[2]=='timetable')
             {
@@ -44,7 +44,7 @@ class AdminManager
                       }
                       eventEmitter.removeAllListeners('status');
                 }
-                return {'success':false,'message':'Done Parsing'};
+                return {'success':true,'message':'Done Parsing'};
             }
 
         }
