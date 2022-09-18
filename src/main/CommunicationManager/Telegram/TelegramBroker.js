@@ -118,13 +118,13 @@ class TelegramBroker
         if(!result.success)
             this.client.sendMessage(message.chat.id,result.message,{parse_mode:'Markdown'});
         if(result.success)
-            if(result.message!=undefined)
-                this.client.sendMessage(message.chat.id,result.message,{parse_mode:'Markdown'});
-            else
             if(result.path!==undefined)
             {   
-                this.client.sendPhoto(message.chat.id,result.path,{},{filename:result.path,contentType:'image/png',});
+                this.client.sendPhoto(message.chat.id,result.path,{caption:result.caption,parse_mode:'Markdown'},{filename:result.path,contentType:'image/png',});
             }
+            else
+                if(result.message!=undefined)
+                    this.client.sendMessage(message.chat.id,result.message,{parse_mode:'Markdown'});
 
 
         }

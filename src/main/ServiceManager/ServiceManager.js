@@ -13,6 +13,12 @@ class ServiceManager
      */
     parseRequest(request)
     {   
+
+        
+        if(request.length == 0)
+            return {'success':false,'message':'Couldnt find Service,\nTry using *help*'};
+        request[0]=request[0].toLowerCase();
+
         /**
          * Request for help
          */
@@ -31,21 +37,8 @@ class ServiceManager
          * If request belongs to timetable
          */
         if(request[0]=='timetable')
-            {
-                if(request.length==3)
-                    {
-                        return this.timeTableService.getSectionTimeTable(request[1],request[2]);
-                    }
-                if(request.length==4)
-                {
-                    let day=request[3].substring(0,3);
-                    day=day.toLowerCase();
-                    day=day.substring(0,1).toUpperCase()+day.substring(1);
-
-                    return this.timeTableService.getDayTimeTable(request[1],request[2],day);
-                }
-
-                return {'success':false , 'message':"Invalid use of command try using  *help timetable*  "}
+            {   
+                return this.timeTableService.parse(request);
             }
 
             

@@ -1,5 +1,5 @@
 const { ServiceManager } = require("../ServiceManager/ServiceManager.js");
-
+const {ParseIntoFormat}=require('./TextProcessor');
 class SimpleMessageProcessor
 {
 
@@ -21,6 +21,7 @@ class SimpleMessageProcessor
             return {'success':false}
         
         else{
+            message=message.toLowerCase();
        /**
         * Parse the request['text'] to get array of string
         * ex: timetable 4 a mon => [timetable,4,a,mon]
@@ -31,27 +32,18 @@ class SimpleMessageProcessor
         
         for(let i=0;i<tokens.length;i++)
         {
-            tokens[i]=this.mapper(tokens[i]);
+            
             if(tokens[i]!='')
                 tempTokens.push(tokens[i]);
         }
+        let parsed=ParseIntoFormat(tempTokens);
 
-        return this.serviceManager.parseRequest(tempTokens);
+        return this.serviceManager.parseRequest(parsed);
     }
         
     }
 
-    mapper(text)
-    {   if(text.startsWith('1'))
-            return '1'
-        if(text.startsWith('2'))
-            return '2';
-        if(text.startsWith('3'))
-            return "3";
-        if(text.startsWith('4'))
-            return '4';
-        return text;
-    }
+
 
 }
 
