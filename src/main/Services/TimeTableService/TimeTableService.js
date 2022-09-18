@@ -1,4 +1,6 @@
 const fs=require('fs');
+const date=require('date-and-time');
+const utcToIndiantime =require('utc-to-indiantime');
 class TimeTableService{
     constructor()
     {
@@ -42,6 +44,16 @@ class TimeTableService{
         if(request.length==4)
         {
             let day=request[3].substring(0,3);
+            if(day=='tod')
+                {
+                    let d=new Date();
+                    console.log(d);
+                    let x=d=utcToIndiantime(d);
+                    
+                    day=date.format(x,'ddd');
+
+                    console.log(day);
+                }
             day=day.toLowerCase();
             day=day.substring(0,1).toUpperCase()+day.substring(1);
 

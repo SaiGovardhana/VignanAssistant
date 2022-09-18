@@ -11,9 +11,11 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2",
+    "date-and-time": "^2.4.1",
     "exceljs": "^4.3.0",
     "node-html-to-image": "^3.2.4",
     "node-telegram-bot-api": "^0.59.0",
-    "stopword": "^2.0.4"
+    "stopword": "^2.0.4",
+    "utc-to-indiantime": "^1.0.7"
   }
 }
