@@ -131,7 +131,7 @@ class TelegramBroker
         catch(E)
         {
             console.log("Error",E)
-            this.client.sendMessage(message.chat.id,"*Unable to process message, Use help*",{parse_mode:'Markdown'});
+            this.client.sendMessage(message.chat.id,"*Unable to process message, Use /help*",{parse_mode:'Markdown'});
         }
     }
 

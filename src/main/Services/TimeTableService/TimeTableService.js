@@ -13,7 +13,7 @@ class TimeTableService{
         //path=path.replace(/\\/g, '/')
             console.log(path);
         if(!fs.existsSync(path))
-            return {'success':false,'message':'Couldnt find the timetable, please check query, or use *help timetable*'}
+            return {'success':false,'message':'Couldnt find the timetable, please check query, or use */help timetable*'}
 
         return {'success':true,'path':path,'caption':`Timetable for *${year} -${section.toUpperCase()} \nOn ${day.toUpperCase()}* `};
 
@@ -60,7 +60,7 @@ class TimeTableService{
             return this.getDayTimeTable(request[1],request[2],day);
         }
 
-        return {'success':false , 'message':"Invalid use of command try using  *help timetable*  "}
+        return {'success':false , 'message':"Invalid use of command try using  */help timetable*  "}
 
     }
 
@@ -71,7 +71,7 @@ class TimeTableService{
         section=section.toUpperCase();
         //path=path.replace(/\\/g, '/');
         if(!fs.existsSync(path))
-            return {'success':false,'message':'Couldnt find the timetable, please check query,*help timetable*'}
+            return {'success':false,'message':'Couldnt find the timetable, please check query,*/help timetable*'}
         
             return {'success':true,'path':path,'caption':`Timetable for *${year} -${section.toUpperCase()}*`};
 

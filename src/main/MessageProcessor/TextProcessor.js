@@ -8,13 +8,21 @@ eng[indexOfA]='is';
 function parseIntoFormat(tokens)
 {   
     let cleaned=removeStopwords(tokens,eng);
-    let services=['timetable'];
+    let services=['/help','/start','timetable'];
     let curService=null;
-    for(let x of cleaned)
-        if(services.includes(x))
-            curService=x;
+    for(let x of services)
+        if(cleaned.includes(x))
+            {curService=x;
+             break;
+            }
     if(curService == null)
         return [];
+
+    if(curService=='/help')
+         return tokens;
+
+    if(curService=='/start')
+        return tokens;
 
     if(curService == 'timetable')
         {   /**

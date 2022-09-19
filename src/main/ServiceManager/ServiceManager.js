@@ -16,13 +16,13 @@ class ServiceManager
 
         
         if(request.length == 0)
-            return {'success':false,'message':'Couldnt find Service,\nTry using *help*'};
+            return {'success':false,'message':'Couldnt find Service,\nTry using */help*'};
         request[0]=request[0].toLowerCase();
 
         /**
          * Request for help
          */
-        if(request[0]=='help'||request[0]=='/start')
+        if(request[0]=='/help'||request[0]=='/start')
         {
             if(request[1]=='timetable')
             {
@@ -45,7 +45,7 @@ class ServiceManager
             /**
              * Couldn't find a service
              */
-            return {'success':false,'message':'Couldnt find Service,\nTry using *help*'};
+            return {'success':false,'message':'Couldnt find Service,\nTry using */help*'};
     }
 
 }
