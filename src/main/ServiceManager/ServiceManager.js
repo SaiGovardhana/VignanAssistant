@@ -1,3 +1,4 @@
+const { getSyllabus } = require('../Services/SyllabusService/SyllabusService.js');
 const {TimeTableService} =require('../Services/TimeTableService/TimeTableService.js')
 class ServiceManager
 {
@@ -41,6 +42,11 @@ class ServiceManager
                 return this.timeTableService.parse(request);
             }
 
+        /**
+         * If request belongs to syllabus
+         */
+        if(request[0]=='syllabus')
+            return getSyllabus(request[1].toLowerCase());
             
             /**
              * Couldn't find a service

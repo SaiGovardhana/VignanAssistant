@@ -61,6 +61,7 @@ class TelegramBroker
                        
                         let data=await axios.get(`https://api.telegram.org/file/bot${this.token}/${fileInfo.file_path}`,{responseType:'arraybuffer'})
                         request['data']=data.data;
+                        request['fileName']=message.document.file_name;
                        
             
                     }
@@ -119,13 +120,16 @@ class TelegramBroker
             this.client.sendMessage(message.chat.id,result.message,{parse_mode:'Markdown'});
         if(result.success)
             if(result.path!==undefined)
-            {   
-                this.client.sendPhoto(message.chat.id,result.path,{caption:result.caption,parse_mode:'Markdown'},{filename:result.path,contentType:'image/png',});
+            {   if(result.path.endsWith('.pdf'))
+                    this.client.sendDocument(message.chat.id,result.path,{caption:result.caption,parse_mode:'Markdown'},{filename:result.path,contentType:'application/pdf',});
+                else
+                    this.client.sendPhoto(message.chat.id,result.path,{caption:result.caption,parse_mode:'Markdown'},{filename:result.path,contentType:'image/png',});
             }
             else
                 if(result.message!=undefined)
                     this.client.sendMessage(message.chat.id,result.message,{parse_mode:'Markdown'});
 
+            
 
         }
         catch(E)

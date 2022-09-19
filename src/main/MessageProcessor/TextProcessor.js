@@ -8,7 +8,7 @@ eng[indexOfA]='is';
 function parseIntoFormat(tokens)
 {   
     let cleaned=removeStopwords(tokens,eng);
-    let services=['/help','/start','timetable'];
+    let services=['/help','/start','timetable','syllabus'];
     let curService=null;
     for(let x of services)
         if(cleaned.includes(x))
@@ -72,6 +72,17 @@ function parseIntoFormat(tokens)
             
             
 
+        }
+
+    if(curService=='syllabus')
+        {   let removed=[curService];
+            let query=''
+            for(let x of cleaned)
+                if(x.toLowerCase()!='syllabus')
+                    query=query+" "+x.toLowerCase();
+            query=query.trim();
+            removed.push(query);
+            return removed;
         }
     
 }
