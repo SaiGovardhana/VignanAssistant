@@ -8,6 +8,9 @@ Send syllabus:
 	/admin <token> syllabus <SubjectCode>  <Subject Name>
 	Attachment: Pdf or jpeg or png
 
+Delete syllabus:
+	/admin <token> syllabusdelete <SubjectCode>
+
 
 Users:
 	Timetable:Service can be used in normal sentence
