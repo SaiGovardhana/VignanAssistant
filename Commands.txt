@@ -1,0 +1,18 @@
+Admin:
+
+Parse Timetable:
+	
+	/admin <token> timetable <Year>  -> Attachment xlsx
+
+Send syllabus:
+	/admin <token> syllabus <SubjectCode>  <Subject Name>
+	Attachment: Pdf or jpeg or png
+
+
+Users:
+	Timetable:Service can be used in normal sentence
+		  year and section can be combined
+		timetable <year> <section> <day>
+	Syllabus:
+	syllabus <Subject id> | <Part or full Subject Name>
+	

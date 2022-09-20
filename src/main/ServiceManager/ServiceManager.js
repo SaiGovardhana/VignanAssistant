@@ -30,7 +30,12 @@ class ServiceManager
                 return  {"success":true,"message":"To Get Section Time:\n*timetable <year> <sec> <Day>*\nDay is not mandatory, \nIf used returns particular day\n(min three characters of day). "}    
             }
 
-            return  {"success":true,"message":"This is a chat assistant in its early stage, only supported service is *TimeTable*"}
+            if(request[1]=='syllabus')
+            {
+                return  {"success":true,"message":"To get a subjects Syllabus:\n*syllabus <SubjectCode>*\n\n OR \n\n*syllabus <SubjectName>*"}    
+            }
+
+            return  {"success":true,"message":"This is a chat assistant in its early stage, only supported services are \n*TimeTable*\n*Syllabus*"}
 
         }
 

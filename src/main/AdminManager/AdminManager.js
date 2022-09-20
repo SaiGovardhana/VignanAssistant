@@ -1,5 +1,5 @@
 const { EventEmitter } = require("events");
-const { SaveSyllabus } = require("../Services/SyllabusService/SyllabusService");
+const { SaveSyllabus, DeleteSyllabus } = require("../Services/SyllabusService/SyllabusService");
 const { BuildTimeTables } = require("../Services/TimeTableService/Utility/BuildTimeTable");
 
 
@@ -65,7 +65,12 @@ class AdminManager
                 let subjectCode=tokens[3];
 
                 console.log(subjectCode,subjectName);                
-                return SaveSyllabus(subjectCode,subjectName,request['data']);
+                return SaveSyllabus(subjectCode,subjectName,request['data'],request['fileName']);
+            }
+            if(tokens[2]=='syllabusdelete')
+            {   if(tokens[3]==undefined)
+                    return {'status':false,'message':'Specify Subject Code'};
+                return DeleteSyllabus(tokens[3]);   
             }   
 
         }

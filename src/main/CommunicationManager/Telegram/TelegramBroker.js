@@ -31,7 +31,13 @@ class TelegramBroker
     {   
         try{
         let body=message.text;
-
+        
+        
+        if(process.env.serverStart>message.date)
+            {
+                this.client.sendMessage(message.chat.id,'*Sorry the Server was down, Please try now.*',{parse_mode:'Markdown'})
+                return ;
+            }
         let attachment=message.document;
         
         let caption=message.caption;
@@ -58,9 +64,10 @@ class TelegramBroker
             {   if(body.trim().toLowerCase().startsWith('/admin'))
                    {    console.log('Getting File');
                         let fileInfo=await this.client.getFile(attachment.file_id);
-                       
+                        
                         let data=await axios.get(`https://api.telegram.org/file/bot${this.token}/${fileInfo.file_path}`,{responseType:'arraybuffer'})
                         request['data']=data.data;
+                        
                         request['fileName']=message.document.file_name;
                        
             
@@ -120,7 +127,8 @@ class TelegramBroker
             this.client.sendMessage(message.chat.id,result.message,{parse_mode:'Markdown'});
         if(result.success)
             if(result.path!==undefined)
-            {   if(result.path.endsWith('.pdf'))
+            {   console.log(result.path)
+                if(result.path.endsWith('.pdf'))
                     this.client.sendDocument(message.chat.id,result.path,{caption:result.caption,parse_mode:'Markdown'},{filename:result.path,contentType:'application/pdf',});
                 else
                     this.client.sendPhoto(message.chat.id,result.path,{caption:result.caption,parse_mode:'Markdown'},{filename:result.path,contentType:'image/png',});
