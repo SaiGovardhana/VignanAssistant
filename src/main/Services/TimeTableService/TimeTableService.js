@@ -44,16 +44,20 @@ class TimeTableService{
         if(request.length==4)
         {
             let day=request[3].substring(0,3);
+            let daysArray=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
             if(day=='tod')
                 {
                     let d=new Date();
-                    console.log(d);
-                    let x=d=utcToIndiantime(d);
+                            
+                    day=daysArray[d.getDay()];
                     
-                    day=date.format(x,'ddd');
-
-                    console.log(day);
                 }
+            if(day=='tom')
+            {
+                let d=new Date();
+                            
+                day=daysArray[(d.getDay()+1)%7];   
+            }
             day=day.toLowerCase();
             day=day.substring(0,1).toUpperCase()+day.substring(1);
 

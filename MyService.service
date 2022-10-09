@@ -1,0 +1,11 @@
+[Unit]
+Description=Vignan Assistant Server
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/assistant
+ExecStart=npm run run
+Restart=always
+
+[Install]
+WantedBy=multi-user.targetex

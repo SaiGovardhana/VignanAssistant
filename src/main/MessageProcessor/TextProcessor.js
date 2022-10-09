@@ -59,7 +59,7 @@ function parseIntoFormat(tokens)
             /**
              * Get the day
              */
-            let days=['mon','tue','wed','thu','fri','sat','tod'];
+            let days=['mon','tue','wed','thu','fri','sat','tod','tom'];
             let curDay=undefined;
             for(let x of cleaned)
                 if(days.includes(x.substring(0,3)))

@@ -5,6 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "run": "node src/main/index.js",
+    "systemd":"/home/ubuntu/.nvm/versions/node/v17.2.0/bin/node"
+    ,
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "SaiGovardhana",
