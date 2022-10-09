@@ -5,6 +5,7 @@ const { eng,removeStopwords } = require('stopword');
 const fs=require('fs');
 let indexOfA=eng.indexOf('a')
 eng[indexOfA]='is';
+
 function parseIntoFormat(tokens)
 {   
     let cleaned=removeStopwords(tokens,eng);
@@ -16,13 +17,13 @@ function parseIntoFormat(tokens)
              break;
             }
     if(curService == null)
-        return [];
+        return {'service':undefined};
 
     if(curService=='/help')
-         return tokens;
+         return {'service':'/help','arg':tokens[1]};
 
     if(curService=='/start')
-        return tokens;
+        return {'service':'/start'};
 
     if(curService == 'timetable')
         {   /**
@@ -35,13 +36,13 @@ function parseIntoFormat(tokens)
                     curYear=x;
             
             if(curYear == undefined )
-                return [curService];
+                return {'service':'timetable'};
             /**
              * Parse Section
              */
             if(!fs.readdirSync(`${process.env.resourceDir}timetable/`).includes(curYear.substring(0,1)))
                 {
-                        return [curService,curYear.substring(0,1)];
+                        return {'service':curService,'year':curYear.substring(0,1)};
                 }
             let sections=fs.readdirSync(`${process.env.resourceDir}timetable/`+curYear.substring(0,1));
             
@@ -54,7 +55,7 @@ function parseIntoFormat(tokens)
                         curSection=x;
             curYear=curYear.substring(0,1);
             if(curSection==undefined)
-                return [curService,curYear];
+                return {'service':curService,'year':curYear};
             
             /**
              * Get the day
@@ -66,24 +67,25 @@ function parseIntoFormat(tokens)
                     curDay=x.substring(0,3);
 
             if(curDay==undefined)
-                return [curService,curYear,curSection];
+                return {'service':curService,'year':curYear,'section':curSection};
             else
-                return [curService,curYear,curSection,curDay];
+                return {'service':curService,'year':curYear,'section':curSection,'day':curDay};
             
             
 
         }
 
     if(curService=='syllabus')
-        {   let removed=[curService];
+        {   
             let query=''
             for(let x of cleaned)
                 if(x.toLowerCase()!='syllabus')
                     query=query+" "+x.toLowerCase();
             query=query.trim();
-            removed.push(query);
-            return removed;
+            return {'service':'syllabus','arg':query};
         }
+
+        return {'service':undefined}
     
 }
 

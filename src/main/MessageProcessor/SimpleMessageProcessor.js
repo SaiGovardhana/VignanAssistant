@@ -36,9 +36,9 @@ class SimpleMessageProcessor
             if(tokens[i]!='')
                 tempTokens.push(tokens[i]);
         }
-        let parsed=ParseIntoFormat(tempTokens);
+        let request=ParseIntoFormat(tempTokens);
 
-        return this.serviceManager.parseRequest(parsed);
+        return this.serviceManager.parseRequest(request);
     }
         
     }

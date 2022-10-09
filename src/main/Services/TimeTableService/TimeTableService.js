@@ -25,25 +25,25 @@ class TimeTableService{
      * @returns 
      */
     parse(request)
-    {   if(request.length==2)
+    {   if(request['year']!=undefined&&request['section']==undefined)
         {
             let yearDir=fs.readdirSync(`${process.env.resourceDir}timetable`);
             console.log('here',yearDir)
-            if(!yearDir.includes(request[1]))
+            if(!yearDir.includes(request['year']))
                 return {'success':false,'message':'Couldnt Find the year'}
-            let sections=fs.readdirSync(`${process.env.resourceDir}timetable/${request[1]}`);
+            let sections=fs.readdirSync(`${process.env.resourceDir}timetable/${request['year']}`);
             let msg='';
             for(let x of sections)
                 msg+=`*${x}*\n`
             return {'success':true,'message':'The available section are\n'+msg};
         }
-        if(request.length==3)
+        if(request['year']!=undefined&&request['section']!=undefined&&request['day']==undefined)
         {
-            return this.getSectionTimeTable(request[1],request[2]);
+            return this.getSectionTimeTable(request['year'],request['section']);
         }
-        if(request.length==4)
+        if(request['year']!=undefined&&request['section']!=undefined&&request['day']!=undefined)
         {
-            let day=request[3].substring(0,3);
+            let day=request['day'].substring(0,3);
             let daysArray=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
             if(day=='tod')
                 {
@@ -61,7 +61,7 @@ class TimeTableService{
             day=day.toLowerCase();
             day=day.substring(0,1).toUpperCase()+day.substring(1);
 
-            return this.getDayTimeTable(request[1],request[2],day);
+            return this.getDayTimeTable(request['year'],request['section'],day);
         }
 
         return {'success':false , 'message':"Invalid use of command try using  */help timetable*  "}

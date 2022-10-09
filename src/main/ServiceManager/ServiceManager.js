@@ -3,12 +3,11 @@ const {TimeTableService} =require('../Services/TimeTableService/TimeTableService
 class ServiceManager
 {
     constructor()
-    {
+    {   console.log('Modifying branch')
         this.timeTableService=new TimeTableService()
     }
     /**
      * Parse the request according to service
-     * @param {Array<string>}request  
      * receive array of strings
      * request[0] =>command 
      */
@@ -16,21 +15,21 @@ class ServiceManager
     {   
 
         
-        if(request.length == 0)
+        if(request['service'] == undefined)
             return {'success':false,'message':'Couldnt find Service,\nTry using */help*'};
-        request[0]=request[0].toLowerCase();
+       
 
         /**
          * Request for help
          */
-        if(request[0]=='/help'||request[0]=='/start')
+        if(request['service']=='/help'||request['service']=='/start')
         {
-            if(request[1]=='timetable')
+            if(request['service']=='timetable')
             {
                 return  {"success":true,"message":"To Get Section Time:\n*timetable <year> <sec> <Day>*\nDay is not mandatory, \nIf used returns particular day\n(min three characters of day). "}    
             }
 
-            if(request[1]=='syllabus')
+            if(request['service']=='syllabus')
             {
                 return  {"success":true,"message":"To get a subjects Syllabus:\n*syllabus <SubjectCode>*\n\n OR \n\n*syllabus <SubjectName>*"}    
             }
@@ -42,7 +41,7 @@ class ServiceManager
         /**
          * If request belongs to timetable
          */
-        if(request[0]=='timetable')
+        if(request['service']=='timetable')
             {   
                 return this.timeTableService.parse(request);
             }
@@ -50,8 +49,8 @@ class ServiceManager
         /**
          * If request belongs to syllabus
          */
-        if(request[0]=='syllabus')
-            return getSyllabus(request[1].toLowerCase());
+        if(request['service']=='syllabus')
+            return getSyllabus(request['arg'].toLowerCase());
             
             /**
              * Couldn't find a service
