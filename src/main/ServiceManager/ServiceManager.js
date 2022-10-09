@@ -24,12 +24,12 @@ class ServiceManager
          */
         if(request['service']=='/help'||request['service']=='/start')
         {
-            if(request['service']=='timetable')
+            if(request['arg']=='timetable')
             {
                 return  {"success":true,"message":"To Get Section Time:\n*timetable <year> <sec> <Day>*\nDay is not mandatory, \nIf used returns particular day\n(min three characters of day). "}    
             }
 
-            if(request['service']=='syllabus')
+            if(request['arg']=='syllabus')
             {
                 return  {"success":true,"message":"To get a subjects Syllabus:\n*syllabus <SubjectCode>*\n\n OR \n\n*syllabus <SubjectName>*"}    
             }
