@@ -14,8 +14,10 @@ class TimeTableService{
             console.log(path);
         if(!fs.existsSync(path))
             return {'success':false,'message':'Couldnt find the timetable, please check query, or use */help timetable*'}
-
-        return {'success':true,'path':path,'caption':`Timetable for *${year} -${section.toUpperCase()} \nOn ${day.toUpperCase()}* `};
+        let fileStat=fs.statSync(path);
+        let date=fileStat.ctime.toLocaleDateString();
+        let time=fileStat.ctime.toLocaleTimeString();
+        return {'success':true,'path':path,'caption':`Timetable for *${year} -${section.toUpperCase()} \nOn ${day.toUpperCase()}* \nUpdated On *${date}*\nat *${time}* `};
 
 
     }
@@ -76,8 +78,10 @@ class TimeTableService{
         //path=path.replace(/\\/g, '/');
         if(!fs.existsSync(path))
             return {'success':false,'message':'Couldnt find the timetable, please check query,*/help timetable*'}
-        
-            return {'success':true,'path':path,'caption':`Timetable for *${year} -${section.toUpperCase()}*`};
+        let fileStat=fs.statSync(path);
+        let date=fileStat.ctime.toLocaleDateString();
+        let time=fileStat.ctime.toLocaleTimeString();
+            return {'success':true,'path':path,'caption':`Timetable for *${year} -${section.toUpperCase()}* \nUpdated On *${date}*\nat *${time}* `};
 
     }
 
