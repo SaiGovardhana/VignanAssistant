@@ -20,26 +20,9 @@ class TelegramBroker
         this.client.on('message',(message)=>{this.onMessage(message);});
         
         this.client.on('error',(error)=>{console.log(error);});
-        /**
-         * Callback query for keyboard
-         */
-        this.client.on('callback_query',(query)=>{this.onCallback(query.message.chat.id);
-        this.client.answerCallbackQuery(query.id);
-        });
+
     }
-    /**
-     * Message callback function
-     * @param {TelegramBot.InlineQuery} query 
-     * 
-     */
-    async onCallback(id)
-    {   console.log('here')
-        this.client.sendMessage(id,'Yahhoo nigga');
-    }
-    /**
-     * 
-     * @param {TelegramBot.Message} message 
-     */
+ 
     async onMessage(message)
     {   
         try{
@@ -118,27 +101,7 @@ class TelegramBroker
             return ;
 
         }
-        /** Syntax for keyboard parse
-        if(true)
-        {
-            let keyboards = {  
-                main_menu: {
-                    reply_markup: {
-                
-                        inline_keyboard: [
-                            [{text: "Cards",callback_data:'444'}, {text: "Progress",callback_data:'33'}],
-                            [{text: "Cards",callback_data:'444'}, {text: "Progress",callback_data:'33'}],
-                            [{text: "Cards",callback_data:'444'}, {text: "Progress",callback_data:'33'}]
-                            
-                        ]
-                    }
-              }};
-              this.client.sendMessage(message.chat.id,'Yahho',{parse_mode:'Markdown',reply_markup:keyboards.main_menu.reply_markup});
-            
 
-            return ;
-        }
-        */
         /**
          * Parse the message For a user
          * The format of request is

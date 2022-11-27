@@ -103,5 +103,5 @@ MyKeyPair.pem
 # TernJS port file
 .tern-port
 TelegramBot.txt
-
+./resources/attendance
 *.7z

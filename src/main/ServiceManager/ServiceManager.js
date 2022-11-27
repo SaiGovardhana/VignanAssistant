@@ -1,3 +1,4 @@
+const { getAttendance } = require('../Services/AttendanceService/AttendanceRetriever.js');
 const { getSyllabus } = require('../Services/SyllabusService/SyllabusService.js');
 const {TimeTableService} =require('../Services/TimeTableService/TimeTableService.js')
 class ServiceManager
@@ -33,8 +34,12 @@ class ServiceManager
             {
                 return  {"success":true,"message":"To get a subjects Syllabus:\n*syllabus <SubjectCode>*\n\n OR \n\n*syllabus <SubjectName>*"}    
             }
+            if(request['arg']=='attendance')
+            {
+                return  {"success":true,"message":"To get attendance for a student:\n*attendance <Student Regd no.>*\n\n OR \n\n*attendance <Student Name>*"}   
+            }
 
-            return  {"success":true,"message":"This is a chat assistant in its early stage, only supported services are \n*TimeTable*\n*Syllabus*"}
+            return  {"success":true,"message":"This is a chat assistant in its early stage, only supported services are \n*TimeTable*\n*Syllabus*\n*Attendance*"}
 
         }
 
@@ -51,7 +56,12 @@ class ServiceManager
          */
         if(request['service']=='syllabus')
             return getSyllabus(request['arg'].toLowerCase());
-            
+        
+        if(request['service']=='attendance')
+            if(request['arg'].trim() == '')
+                return {'success':false,'message':"*Specify name or Register Number*"};
+            else
+                return getAttendance(request['arg'].toLowerCase());
             /**
              * Couldn't find a service
              */

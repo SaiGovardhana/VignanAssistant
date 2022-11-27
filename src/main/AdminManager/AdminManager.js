@@ -1,7 +1,9 @@
 const { EventEmitter } = require("events");
 const { SaveSyllabus, DeleteSyllabus } = require("../Services/SyllabusService/SyllabusService");
 const { BuildTimeTables } = require("../Services/TimeTableService/Utility/BuildTimeTable");
-
+const {AttendanceParser}=require('../Services/AttendanceService/AttendanceParser.js');
+const { AttendanceSaver } = require("../Services/AttendanceService/AttendanceSaver");
+;
 
 class AdminManager
 {
@@ -72,6 +74,25 @@ class AdminManager
                     return {'status':false,'message':'Specify Subject Code'};
                 return DeleteSyllabus(tokens[3]);   
             }   
+
+        }
+
+        if(tokens[2] == 'attendance')
+        {
+            if(request['data']==undefined)
+                return {'success':false,'message':'Please send attachment'};
+
+            try
+            {   //Convert into json
+                let res=await AttendanceParser(request['data']);
+                let result=AttendanceSaver(res);  
+                return result;
+            }
+            catch(E)
+            {   
+                return {'success':false,'message':'Error While Parsing'};
+
+            }
 
         }
 
