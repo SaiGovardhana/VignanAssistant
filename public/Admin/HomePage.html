@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vignan's Assistant</title>
+
+</head>
+    <!-- Body is type of flex with direction as column with view height see to 100-->
+    <body class="d-flex flex-column vh-100 justify-content-between">
+        <link href="resources/bootstrap.css" rel="stylesheet" >
+        <nav class="navbar navbar-dark bg-primary flex-sm-row  justify-content-center  justify-content-lg-start">
+            <a class="navbar-brand fw-bold "  href="#">
+              <img src="resources/brand.png" width="30" height="30" class=" mx-3 d-inline-block align-top" alt="">
+              VIGNAN'S ASSISTANT
+            </a>
+          </nav>
+        <p class="h1  text-center mt-3 text-primary fw-bolder" >ADMIN'S ACCESS</p>
+        <!-- Start Of Content for the Page its flex grow is 1 occupies remaining space -->
+        <div class="d-flex flex-row  flex-wrap  align-items-center justify-content-center flex-grow-1 ">
+
+            <div class="card text-white bg-primary m-3" style="min-height: 15rem;max-width: 18rem;">
+                <div class="card-header">TIME-TABLE</div>
+                <div class="card-body">
+                  <h5 class="card-title">Update Time Table</h5>
+                  <p class="card-text">Upload an excel sheet specifying the year and generate corresponding png </p>
+                  <a href="./UpdateTimeTable.html" class=" btn  btn-outline-light my-button">Take Me There</a>
+                </div>
+              </div>
+
+              <div class="card text-white bg-primary m-3" style="min-height: 15rem;max-width: 18rem;">
+                <div class="card-header">SYLLABUS</div>
+                <div class="card-body">
+                  <h5 class="card-title">Upload Syllabus Copy</h5>
+                  <p class="card-text">Provide an image or document regarding a subject syllabus copy.</p>
+                  <a href="./UploadSyllabus.html" class=" btn  btn-outline-light my-button">Take Me There</a>
+                </div>
+               </div>
+                <div class="card text-white bg-primary m-3" style="min-height: 15rem;max-width: 18rem;">
+                    <div class="card-header">ATTENDANCE</div>
+                    <div class="card-body">
+                      <h5 class="card-title">Upload Attendance With An Excel Sheet</h5>
+                      <p class="card-text">Provide an excel sheet with student details and Attendance.</p>
+                      <a href="./UpdateAttendance.html" class=" btn  btn-outline-light my-button">Take Me There</a>
+                    </div>
+                    
+                </div>
+
+                <div class="card text-white bg-primary m-3" style="min-height: 15rem;max-width: 18rem;">
+                    <div class="card-header">NOTIFICATION</div>
+                    <div class="card-body">
+                      <h5 class="card-title">Send Notifications To Users</h5>
+                      <p class="card-text">Provide an excel sheet with student details and attendance.</p>
+                      <button type="button" class=" btn  btn-outline-light my-button">Take Me There</button>
+                    </div>
+                </div>
+
+
+                
+                
+              </div>
+    
+    <!-- End Of Content for the Page-->
+
+            <footer class="bg-primary text-center text-lg-start">
+                <!-- Copyright -->
+                <div class="  text-center p-1 text-light fw-bold" >
+                Project Undergone During 4<sup>th</sup> Year @2022 As Part Of SCIRP
+                
+                </div>
+                <!-- Copyright -->
+            </footer>
+    </body>
+</html>

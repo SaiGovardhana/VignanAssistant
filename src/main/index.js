@@ -1,7 +1,9 @@
 let {MessageProcessor}=require('./MessageProcessor/SimpleMessageProcessor');
 let { TelegramBroker }=require('./CommunicationManager/Telegram/TelegramBroker');
 const { AdminManager } = require('./AdminManager/AdminManager');
+const express=require('express');
 const fs=require('fs');
+const { startWebApp } = require('./AdminPortal');
 process.env.token=fs.readFileSync('./TelegramBot.txt').toString('utf-8');
 process.env.resourceDir=process.cwd()+"/resources/";
 let resourceDir=process.env.resourceDir;
@@ -21,3 +23,4 @@ if(!fs.existsSync(`${resourceDir}timetable`))
 let messageProcessor=new MessageProcessor();
 let adminManager=new AdminManager();
 let telegramBroker=new TelegramBroker(messageProcessor,adminManager);
+let app=startWebApp();

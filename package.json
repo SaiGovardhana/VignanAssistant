@@ -5,16 +5,18 @@
   "main": "src/index.js",
   "scripts": {
     "run": "node src/main/index.js",
-    "systemd":"/home/ubuntu/.nvm/versions/node/v17.2.0/bin/node"
-    ,
+    "systemd": "/home/ubuntu/.nvm/versions/node/v17.2.0/bin/node",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "SaiGovardhana",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.27.2",
+    "cookie-parser": "^1.4.6",
     "date-and-time": "^2.4.1",
     "exceljs": "^4.3.0",
+    "express": "^4.18.2",
+    "multer": "^1.4.5-lts.1",
     "node-html-to-image": "^3.2.4",
     "node-telegram-bot-api": "^0.59.0",
     "stopword": "^2.0.4",

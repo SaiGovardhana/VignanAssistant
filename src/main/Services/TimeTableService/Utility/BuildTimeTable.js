@@ -19,7 +19,8 @@ async function BuildTimeTables(buffer,year,eventEmitter)
     {
         fs.mkdirSync(process.env.resourceDir+`timetable/${map[year]}/${x}/`,{recursive:true});
         let currentSection=generateSection(timeTable.getSection(x));
-        eventEmitter.emit('status',`Parsing Section:${map[year]} ${x}`);
+        if(eventEmitter!=null)
+            eventEmitter.emit('status',`Parsing Section:${map[year]} ${x}`);
         await nodeHtmlToImage({
             html:currentSection,
             output:process.env.resourceDir+`timetable/${map[year]}/${x}/timetable.png`
@@ -27,7 +28,8 @@ async function BuildTimeTables(buffer,year,eventEmitter)
 
         for(d of days)
             {   console.log(`Parsing day:${map[year]} ${x} ${d}`);
-                eventEmitter.emit('status',`Parsing day:${map[year]} ${x} ${d}`);
+                if(eventEmitter!=null)
+                    eventEmitter.emit('status',`Parsing day:${map[year]} ${x} ${d}`);
                 let currentDay=generateDay(d,timeTable.getSection(x));
                 await nodeHtmlToImage({
                     html:currentDay,
