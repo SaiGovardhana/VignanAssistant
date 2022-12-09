@@ -10,7 +10,7 @@ const upload=(require('multer'))();
 
 
 
-function startWebApp(){
+function startWebApp(telegramBroker){
 const app=express();
 app.use(cookieParser());
 app.use('/Admin',Authenticate);
@@ -98,6 +98,23 @@ app.post('/Admin/UploadTimeTable',upload.single('timetable'),(req,res)=>
 
    
  });
+
+ /**
+  * Endpoint for sending notifications
+  */
+app.post('/Admin/SendNotification',upload.single('attachment'),(req,res)=>
+{
+  if(req.file == undefined || req.file == null)
+    {
+      telegramBroker.sendBroadCast(req.body.message,null);
+
+    }
+  else
+    telegramBroker.sendBroadCast(req.body.message,req.file.buffer,req.file.originalname);
+  res.redirect('/');
+
+})
+
 app.listen(4000);
 return app;
 }

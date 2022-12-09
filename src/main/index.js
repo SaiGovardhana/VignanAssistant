@@ -23,4 +23,4 @@ if(!fs.existsSync(`${resourceDir}timetable`))
 let messageProcessor=new MessageProcessor();
 let adminManager=new AdminManager();
 let telegramBroker=new TelegramBroker(messageProcessor,adminManager);
-let app=startWebApp();
+let app=startWebApp(telegramBroker);

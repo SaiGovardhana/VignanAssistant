@@ -15,21 +15,43 @@ class TelegramBroker
     constructor(messageManager,adminManager)
     {   this.token=fs.readFileSync('./TelegramBot.txt').toString('utf-8');
         this.client=new TelegramBot(this.token,{polling:true});
+        this.users=[]
+        if(fs.existsSync('./resources/users.json'))
+            this.users=JSON.parse(fs.readFileSync('./resources/users.json','utf8'));
+        console.log('Users are '+this.users);
+
         this.messageManager=messageManager;
         this.adminManager=adminManager;
         this.client.on('message',(message)=>{this.onMessage(message);});
-        
         this.client.on('error',(error)=>{console.log(error);});
-
+       
     }
- 
+    
+    async sendBroadCast(message,buffer,documentName)
+    {
+        if(buffer == null)
+            for(let x of this.users)
+                this.client.sendMessage(x,message,{parse_mode:'Markdown'}).catch(e=>console.log('Error Occured While Sending BroadCast To client '+x));
+        else
+        {   
+            for(let x of this.users)
+                this.client.sendDocument(x,buffer,{caption:message,parse_mode:'Markdown'},{filename:documentName});
+        }
+    }
+
     async onMessage(message)
     {   
         try{
         
         let body=message.text;
         
-        
+        if(this.users.indexOf(message.chat.id) == -1)
+        {
+            console.log("NEW USER");
+            this.users.push(message.chat.id);
+            fs.writeFileSync('./resources/users.json',JSON.stringify(this.users));
+            this.client.sendMessage(message.chat.id,"*User has been added to broadcast.*",{parse_mode:'Markdown'});
+        }
         if(process.env.serverStart>message.date)
             {
                 this.client.sendMessage(message.chat.id,'*Sorry the Server was down, Please try now.*',{parse_mode:'Markdown'})

@@ -17,16 +17,16 @@
           </nav>
         
         <!-- Start Of Content for the Page its flex grow is 1 occupies remaining space -->
-        <form action="/Admin/UploadTimeTable" enctype="multipart/form-data" method="post" class="d-flex flex-column align-items-center justify-content-evenly flex-grow-1 ">
-            <div class="text-center h1  fw-bolder text-primary mt-3">Time-Table Upload</div>
+        <form action="/Admin/SendNotification" enctype="multipart/form-data" method="post" class="d-flex flex-column align-items-center justify-content-evenly flex-grow-1 ">
+            <div class="text-center h1  fw-bolder text-primary mt-3">Send Notification</div>
             <img src="resources/brand.png" width="70" height="70" class=" mx-3 d-inline-block align-top" alt="">
             <div class="d-flex flex-column">
-                <div class="text-center h4  fw-bolder text-primary ">Enter Year Of TimeTable</div>
-                <input type="number" required class="form-control w-auto " id="year" name="year" placeholder="Enter Year">
+                <div class="text-center h4  fw-bolder text-primary ">Enter Notification Content</div>
+                <textarea  required style="resize: none" class="form-control w-auto " id="message" name="message" placeholder="Enter Notification Content"></textarea>
             </div>
-            <div>
-                <div class="text-center h4  fw-bolder text-primary mt-2">Upload TimeTable Format:</div>
-                <input required type="file" name="timetable" class="form-control w-auto form-control-sm " id="timetable" placeholder="Upload File">
+            <div class="d-flex flex-column">
+                <div class="text-center h4  fw-bolder text-primary mt-2">Upload An Attachment</div>
+                <input  type="file" name="attachment" class="form-control w-auto form-control-sm " id="attachment" placeholder="Upload File">
             </div>
             <input type="submit" class="btn btn-outline-primary m-3" value="Upload">
         </form>
