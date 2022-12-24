@@ -4,7 +4,8 @@ const { Authenticate } = require("./Authentication");
 const { AttendanceSaver } = require("../Services/AttendanceService/AttendanceSaver");
 const { BuildTimeTables } = require("../Services/TimeTableService/Utility/BuildTimeTable");
 const { SaveSyllabus } = require("../Services/SyllabusService/SyllabusService");
-const {AttendanceParser}=require("../Services/AttendanceService/AttendanceParser")
+const {AttendanceParser}=require("../Services/AttendanceService/AttendanceParser");
+const { SaveDocument } = require("../Services/DocumentService.js/SaveDocument");
 const upload=(require('multer'))();
 
 
@@ -16,7 +17,7 @@ app.use(cookieParser());
 app.use('/Admin',Authenticate);
 app.use(express.static('./public'))
 app.use(express.urlencoded({extended:true}));
-
+app.set('case sensitive routing',true);
 
 /**
  * Endpoint to set cookie
@@ -26,7 +27,7 @@ app.post('/login',(req,res)=>
   if(req.body['username'] && req.body['password'])
   { let {username,password}=req.body;
     console.log(username,password);
-    if(username == 'root'  && password == 'root' )
+    if(username == 'root'  && password == 'topfew' )
       {
         res.cookie('name','root',{maxAge:1000*3600});
         res.redirect('/Admin/HomePage.html');
@@ -87,7 +88,7 @@ app.post('/Admin/UploadTimeTable',upload.single('timetable'),(req,res)=>
 /**
  * Endpoint to upload syllabus
  */
- app.post('/Admin/UploadSyllabus',upload.single('syllabus'),(req,res)=>
+ app.post('/Admin/UploadSyllabus',upload.single('document'),(req,res)=>
  {
    console.log("Got request to Upload Syllabus");
    console.log(req.file);
@@ -107,13 +108,26 @@ app.post('/Admin/SendNotification',upload.single('attachment'),(req,res)=>
   if(req.file == undefined || req.file == null)
     {
       telegramBroker.sendBroadCast(req.body.message,null);
-
+      
     }
   else
     telegramBroker.sendBroadCast(req.body.message,req.file.buffer,req.file.originalname);
   res.redirect('/');
+  
+});
+/**
+ * Endpoint for Uploading document
+ */
+app.post('/Admin/UploadDocument',upload.single('document'),(req,res)=>
+{
+  console.log("Got request to Upload Document");
+  
+  SaveDocument(req.body['tags'],req.file.buffer,req.file.originalname,req.file.mimetype);
+  
+  res.redirect('/');
 
-})
+  
+});
 
 app.listen(4000);
 return app;

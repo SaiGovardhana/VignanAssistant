@@ -1,3 +1,5 @@
+process.env.resourceDir=process.cwd()+"/resources/";
+let resourceDir=process.env.resourceDir;
 let {MessageProcessor}=require('./MessageProcessor/SimpleMessageProcessor');
 let { TelegramBroker }=require('./CommunicationManager/Telegram/TelegramBroker');
 const { AdminManager } = require('./AdminManager/AdminManager');
@@ -5,12 +7,18 @@ const express=require('express');
 const fs=require('fs');
 const { startWebApp } = require('./AdminPortal');
 process.env.token=fs.readFileSync('./TelegramBot.txt').toString('utf-8');
-process.env.resourceDir=process.cwd()+"/resources/";
-let resourceDir=process.env.resourceDir;
+
 process.env.NTBA_FIX_350=true;
 process.env.serverStart=Math.floor(new Date().getTime() / 1000);
 if(!fs.existsSync(resourceDir))
     fs.mkdirSync(resourceDir);
+    
+if(!fs.existsSync(resourceDir+'documents/'))
+    {
+        fs.mkdirSync(resourceDir+'documents/');
+        fs.writeFileSync(resourceDir+'documents/map.json','[]',{encoding:"utf8"});
+    }
+
     
 if(!fs.existsSync(`${resourceDir}syllabus`))
 {
