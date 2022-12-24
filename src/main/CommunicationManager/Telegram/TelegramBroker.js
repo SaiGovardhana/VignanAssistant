@@ -5,9 +5,10 @@ const axios = require('axios').default;
 const TelegramBot = require('node-telegram-bot-api');
 const { AdminManager } = require('../../AdminManager/AdminManager');
 const {MessageProcessor}=require('../../MessageProcessor/SimpleMessageProcessor');
+const { RetrieveDocument } = require('../../Services/DocumentService.js/RetrieveDocument');
 const { BuildTimeTables } = require('../../Services/TimeTableService/Utility/BuildTimeTable');
 class TelegramBroker
-{   
+{
 /**
  * @param {AdminManager} adminManager
  * @param {MessageProcessor} messageManager
@@ -24,6 +25,23 @@ class TelegramBroker
         this.adminManager=adminManager;
         this.client.on('message',(message)=>{this.onMessage(message);});
         this.client.on('error',(error)=>{console.log(error);});
+        this.client.on('callback_query',(query)=>
+        {
+            let data=query.data;
+            let userId=query.from.id;
+            
+            let result=RetrieveDocument(data);
+            this.client.answerCallbackQuery(query.id);
+            this.client.ans
+            if(result.path!=undefined)
+                this.client.sendDocument(userId,result.path,{caption:result.caption,parse_mode:'Markdown'},{filename:result.path,contentType:result.mimetype}); 
+            else
+                this.client.sendMessage(userId,result.message,{parse_mode:'Markdown'});
+
+            
+
+        });
+
        
     }
     
@@ -144,14 +162,26 @@ class TelegramBroker
         if(result.success)
             if(result.path!==undefined)
             {   console.log(result.path)
-                if(result.path.endsWith('.pdf'))
-                    this.client.sendDocument(message.chat.id,result.path,{caption:result.caption,parse_mode:'Markdown'},{filename:result.path,contentType:'application/pdf',});
-                else
-                    this.client.sendPhoto(message.chat.id,result.path,{caption:result.caption,parse_mode:'Markdown'},{filename:result.path,contentType:'image/png',});
+                if(result.mimetype!=undefined)
+                {
+                    this.client.sendDocument(message.chat.id,result.path,{caption:result.caption,parse_mode:'Markdown'},{filename:result.path,contentType:result.mimetype}); 
+                }
+                else{
+                    if(result.path.endsWith('.pdf'))
+                        this.client.sendDocument(message.chat.id,result.path,{caption:result.caption,parse_mode:'Markdown'},{filename:result.path,contentType:'application/pdf',});
+                    else
+                        this.client.sendPhoto(message.chat.id,result.path,{caption:result.caption,parse_mode:'Markdown'},{filename:result.path,contentType:'image/png',});
+                }
             }
             else
-                if(result.message!=undefined)
-                    this.client.sendMessage(message.chat.id,result.message,{parse_mode:'Markdown'});
+            {   if(result.buttons!=undefined)
+                {
+                    this.client.sendMessage(message.chat.id,result.message,{parse_mode:'Markdown',reply_markup:{inline_keyboard:result.buttons}})
+                }
+                else
+                    if(result.message!=undefined)
+                        this.client.sendMessage(message.chat.id,result.message,{parse_mode:'Markdown'});
+            }
 
             
 

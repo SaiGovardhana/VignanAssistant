@@ -27,6 +27,7 @@ class SimpleMessageProcessor
         * ex: timetable 4 a mon => [timetable,4,a,mon]
         * also changes 1st to 1 2nd 2
         */
+        message=message.replace('time table','timetable');
         let tokens=message.split(" ");
         let tempTokens=[]
         

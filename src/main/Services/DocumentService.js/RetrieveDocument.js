@@ -21,6 +21,13 @@ function RetrieveDocument(givenName)
     for(let x of allFiles)
     {
         let curCount=getMatches(x['tags'],givenName);
+        if(givenName.indexOf(x['fid'])!=-1)
+        {
+            matchCount=1;
+            matchedResult=[]
+            matchedResult.push(x);
+            break;
+        }
         if(curCount==0)
             continue;
         if(curCount>matchCount)
@@ -41,9 +48,13 @@ function RetrieveDocument(givenName)
      return {'success':true,'message':'Couldnt Find Any Related Documents'};
 
     if(matchedResult.length >1)
-        return {'success':true,'message':'Multiple Files Detected'};
+    {   let buts=[]
+        for(let z of matchedResult)
+            buts.push([{'text':z['fileName'],'callback_data':z['fid']}])
+        return {'success':true,'message':'*Multiple Files Detected*','buttons':buts};
+    }
     else
-        return {'success':true,'file':matchedResult[0]};
+        return {'success':true,'path':`${docDir}${matchedResult[0]['fid']}/${matchedResult[0]['fileName']}`,'mimetype':matchedResult[0]['mimetype']};
 
     
 }

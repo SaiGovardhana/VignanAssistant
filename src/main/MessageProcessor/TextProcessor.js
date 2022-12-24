@@ -9,7 +9,7 @@ eng[indexOfA]='is';
 function parseIntoFormat(tokens)
 {   
     let cleaned=removeStopwords(tokens,eng);
-    let services=['/help','/start','timetable','syllabus','attendance'];
+    let services=['/help','/start','timetable','document','documents','syllabus','attendance'];
     let curService=null;
     for(let x of services)
         if(cleaned.includes(x))
@@ -18,7 +18,13 @@ function parseIntoFormat(tokens)
             }
     if(curService == null)
         return {'service':undefined};
-
+    if(curService =='document'|| curService=='documents')
+    {       let args="";
+            for(let xz of tokens)
+                args=args+" "+xz;
+            args=args.trim();
+            return {'service':'document','arg':args};
+    }
     if(curService=='/help')
          return {'service':'/help','arg':tokens[1]};
 

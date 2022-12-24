@@ -1,6 +1,7 @@
 const { getAttendance } = require('../Services/AttendanceService/AttendanceRetriever.js');
 const { getSyllabus } = require('../Services/SyllabusService/SyllabusService.js');
 const {TimeTableService} =require('../Services/TimeTableService/TimeTableService.js')
+const{RetrieveDocument}=require('../Services/DocumentService.js/RetrieveDocument')
 class ServiceManager
 {
     constructor()
@@ -62,6 +63,10 @@ class ServiceManager
                 return {'success':false,'message':"*Specify name or Register Number*"};
             else
                 return getAttendance(request['arg'].toLowerCase());
+        
+                
+        if(request['service']=='document')
+                return RetrieveDocument(request['arg']);
             /**
              * Couldn't find a service
              */

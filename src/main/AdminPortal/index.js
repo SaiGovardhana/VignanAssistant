@@ -88,7 +88,7 @@ app.post('/Admin/UploadTimeTable',upload.single('timetable'),(req,res)=>
 /**
  * Endpoint to upload syllabus
  */
- app.post('/Admin/UploadSyllabus',upload.single('document'),(req,res)=>
+ app.post('/Admin/UploadSyllabus',upload.single('syllabus'),(req,res)=>
  {
    console.log("Got request to Upload Syllabus");
    console.log(req.file);
