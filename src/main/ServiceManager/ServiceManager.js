@@ -39,8 +39,11 @@ class ServiceManager
             {
                 return  {"success":true,"message":"To get attendance for a student:\n*attendance <Student Regd no.>*\n\n OR \n\n*attendance <Student Name>*"}   
             }
-
-            return  {"success":true,"message":"This is a chat assistant in its early stage, only supported services are \n*TimeTable*\n*Syllabus*\n*Attendance*"}
+            if(request['arg']=='document')
+            {
+                return  {"success":true,"message":"To get a document:\n*Document File tags or related words*"}   
+            }
+            return  {"success":true,"message":"This is a chat assistant in its early stage, only supported services are \n*TimeTable*\n*Syllabus*\n*Attendance*\n*Documents*"}
 
         }
 

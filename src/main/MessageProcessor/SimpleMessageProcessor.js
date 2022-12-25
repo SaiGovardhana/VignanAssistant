@@ -28,6 +28,8 @@ class SimpleMessageProcessor
         * also changes 1st to 1 2nd 2
         */
         message=message.replace('time table','timetable');
+        if(message=='hi' || message =='hello')
+            message='/help';
         let tokens=message.split(" ");
         let tempTokens=[]
         

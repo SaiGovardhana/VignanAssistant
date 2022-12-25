@@ -46,7 +46,7 @@ app.get('/',
     if('name' in req.cookies)
       if( req.cookies['name'] == 'root')
       {
-        res.redirect('/Admin/Homepage.html');
+        res.redirect('/Admin/HomePage.html');
         return;
       }
       res.redirect('/login.html');

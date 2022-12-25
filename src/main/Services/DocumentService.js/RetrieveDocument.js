@@ -54,7 +54,7 @@ function RetrieveDocument(givenName)
         return {'success':true,'message':'*Multiple Files Detected*','buttons':buts};
     }
     else
-        return {'success':true,'path':`${docDir}${matchedResult[0]['fid']}/${matchedResult[0]['fileName']}`,'mimetype':matchedResult[0]['mimetype']};
+        return {'success':true,'caption':`Heres Your Document \n *${matchedResult[0]['fileName']}*`,'path':`${docDir}${matchedResult[0]['fid']}/${matchedResult[0]['fileName']}`,'mimetype':matchedResult[0]['mimetype']};
 
     
 }

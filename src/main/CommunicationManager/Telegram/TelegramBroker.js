@@ -31,7 +31,7 @@ class TelegramBroker
             let userId=query.from.id;
             
             let result=RetrieveDocument(data);
-            this.client.answerCallbackQuery(query.id);
+            this.client.answerCallbackQuery(query.id,{text:'Processing your document Request'});
             this.client.ans
             if(result.path!=undefined)
                 this.client.sendDocument(userId,result.path,{caption:result.caption,parse_mode:'Markdown'},{filename:result.path,contentType:result.mimetype}); 
